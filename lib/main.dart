@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-//TODO: Step 15 - Run the app and see if you can see the screen update with the first story. Delete this TODO if it looks as you expected.
+import 'age.dart';
 
 void main() => runApp(Destini());
 
@@ -8,88 +7,118 @@ class Destini extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData.dark(),
-      home: StoryPage(),
+      home: Age(),
     );
   }
 }
 
-//TODO: Step 9 - Create a new storyBrain object from the StoryBrain class.
 
-class StoryPage extends StatefulWidget {
-  _StoryPageState createState() => _StoryPageState();
+class Homepage extends StatefulWidget {
+  @override
+  _HomepageState createState() => _HomepageState();
 }
 
-class _StoryPageState extends State<StoryPage> {
+class _HomepageState extends State<Homepage> {
+  final _text = TextEditingController();
+  bool _validate = false;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        //TODO: Step 1 - Add background.png to this Container as a background image.
-        padding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 15.0),
-        constraints: BoxConstraints.expand(),
-        child: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Expanded(
-                flex: 12,
-                child: Center(
-                  child: Text(
-                    //TODO: Step 10 - use the storyBrain to get the first story title and display it in this Text Widget.
-                    'Story text will go here.',
-                    style: TextStyle(
-                      fontSize: 25.0,
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 2,
-                child: FlatButton(
-                  onPressed: () {
-                    //Choice 1 made by user.
-                    //TODO: Step 18 - Call the nextStory() method from storyBrain and pass the number 1 as the choice made by the user.
-                  },
-                  color: Colors.red,
-                  child: Text(
-                    //TODO: Step 13 - Use the storyBrain to get the text for choice 1.
-                    'Choice 1',
-                    style: TextStyle(
-                      fontSize: 20.0,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 20.0,
-              ),
-              Expanded(
-                flex: 2,
-                //TODO: Step 26 - Use a Flutter Visibility Widget to wrap this FlatButton.
-                //TODO: Step 28 - Set the "visible" property of the Visibility Widget to equal the output from the buttonShouldBeVisible() method in the storyBrain.
-                child: FlatButton(
-                  onPressed: () {
-                    //Choice 2 made by user.
-                    //TODO: Step 19 - Call the nextStory() method from storyBrain and pass the number 2 as the choice made by the user.
-                  },
-                  color: Colors.blue,
-                  child: Text(
-                    //TODO: Step 14 - Use the storyBrain to get the text for choice 2.
-                    'Choice 2',
-                    style: TextStyle(
-                      fontSize: 20.0,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+    return MaterialApp(
+     home: Scaffold(
+       body: SafeArea(
+         child: Container(
+           decoration: BoxDecoration(
+             image: DecorationImage(
+               image: AssetImage('images/background.png'),
+               fit: BoxFit.cover,
+             ),
+           ),
+           child: Center(
+             child: Column(
+               crossAxisAlignment: CrossAxisAlignment.stretch,
+               mainAxisAlignment: MainAxisAlignment.center,
+               children: [
+                 Expanded(
+                   //flex: 5,
+                   child: Container(
+                     decoration: BoxDecoration(
+                       gradient: LinearGradient(
+                         begin: Alignment.topCenter,
+                         end: Alignment.bottomCenter,
+                         colors: [Colors.green, Colors.limeAccent],
+                       ),
+                       shape: BoxShape.circle,
+                     ),
+                     margin: EdgeInsets.all(50.0),
+                     padding: EdgeInsets.all(10.0),
+                     child: Center(
+                       child: Text(
+                         'What is your Name?',
+                         style: TextStyle(
+                           color: Colors.black,
+                           fontSize: 40.0,
+                           fontWeight: FontWeight.bold,
+                           fontFamily: 'Pacifico',
+                         ),
+                       ),
+                     ),
+                   ),
+                 ),
+                 Row(
+                   children: [
+                     Expanded(
+                       child: Padding(
+                         padding: EdgeInsets.fromLTRB(30.0, 30.0, 0.0, 30.0),
+                         child: TextFormField(
+                           style: TextStyle(
+                             color: Colors.white,
+                           ),
+                           controller: _text,
+                           decoration: InputDecoration(
+                             border: OutlineInputBorder(
+                               borderSide: BorderSide(color: Colors.white),
+                             ),
+                             labelText: 'Enter your Name',
+                             enabledBorder: OutlineInputBorder(
+                               borderSide: BorderSide(color: Colors.white),
+                             ),
+                             focusedBorder: OutlineInputBorder(
+                               borderSide: BorderSide(color: Colors.white),
+                             ),
+                             labelStyle: TextStyle(
+                               color: Colors.white,
+                             ),
+                             errorText: _validate ? 'Cannot be Empty' : null,
+                           ),
+                         ),
+                       ),
+                     ),
+                     TextButton(
+                       onPressed: () {
+                         setState(() {
+                           _text.text.isEmpty
+                               ? _validate = true
+                               : _validate = false;
+                           if(!_validate)
+                             runApp(Age());
+                         });
+                       },
+                       child: Icon(
+                         Icons.send,
+                         color: Colors.white,
+                         size: 50.0,
+                       ),
+                     ),
+                   ],
+                 ),
+               ],
+             ),
+           ),
+         ),
+       ),
+     ),
     );
   }
 }
 
-//TODO: Step 24 - Run the app and try to figure out what code you need to add to this file to make the story change when you press on the choice buttons.
 
-//TODO: Step 29 - Run the app and test it against the Story Outline to make sure you've completed all the steps. The code for the completed app can be found here: https://github.com/londonappbrewery/destini-challenge-completed/
