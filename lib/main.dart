@@ -127,7 +127,11 @@ class _HomepageState extends State<Homepage> {
                             _text.text.isEmpty
                                 ? _validate = true
                                 : _validate = false;
-                            if (!_validate) runApp(Age());
+                            if (!_validate)
+                            {
+                              Navigator.of(context).push(
+                                
+                            }
                           });
                         },
                         child: Icon(

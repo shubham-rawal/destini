@@ -32,7 +32,7 @@ class _AgeState extends State<Age> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Expanded(
-                    flex: 5,
+                    //flex: 5,
                     child: TextButton(
                       onPressed: () {
                         setState(() {
