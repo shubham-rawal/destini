@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'storypage.dart';
+import 'main.dart';
 
 class Age extends StatefulWidget {
   @override
@@ -8,6 +9,11 @@ class Age extends StatefulWidget {
 }
 
 class _AgeState extends State<Age> {
+  int state = 0;
+  Gradient grad1 = LinearGradient(
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+      colors: [Colors.greenAccent, Colors.limeAccent]);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -27,25 +33,47 @@ class _AgeState extends State<Age> {
                 children: [
                   Expanded(
                     flex: 5,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [Colors.green, Colors.limeAccent],
+                    child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          if (state == 0) {
+                            state = 1;
+                            grad1 = LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  Colors.orangeAccent,
+                                  Colors.yellow.shade400
+                                ]);
+                          } else {
+                            state = 0;
+                            grad1 = LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  Colors.greenAccent,
+                                  Colors.limeAccent
+                                ]);
+                          }
+                        });
+                      },
+                      child: AnimatedContainer(
+                        duration: Duration(seconds: 3),
+                        decoration: BoxDecoration(
+                          gradient: grad1,
+                          shape: BoxShape.circle,
                         ),
-                        shape: BoxShape.circle,
-                      ),
-                      margin: EdgeInsets.all(50.0),
-                      padding: EdgeInsets.all(50.0),
-                      child: Center(
-                        child: Text(
-                          'What is Your Age?',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 40.0,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Pacifico',
+                        margin: EdgeInsets.all(50.0),
+                        padding: EdgeInsets.all(10.0),
+                        child: Center(
+                          child: Text(
+                            'What is Your Age?',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 40.0,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Pacifico',
+                            ),
                           ),
                         ),
                       ),
@@ -54,7 +82,11 @@ class _AgeState extends State<Age> {
                   Center(
                     child: TextButton(
                       onPressed: () {
-                        showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime(1921, 1, 1), lastDate: DateTime.now());
+                        showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(1921, 1, 1),
+                            lastDate: DateTime.now());
                       },
                       child: CircleAvatar(
                         backgroundImage: AssetImage('images/calendar.jpg'),

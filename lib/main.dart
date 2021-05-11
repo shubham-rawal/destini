@@ -20,6 +20,13 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+
+  int state = 0;
+  Gradient grad1 = LinearGradient(
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+      colors: [Colors.greenAccent, Colors.limeAccent]
+  );
   final _text = TextEditingController();
   bool _validate = false;
   @override
@@ -41,25 +48,47 @@ class _HomepageState extends State<Homepage> {
                 children: [
                   Expanded(
                     //flex: 5,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [Colors.green, Colors.limeAccent],
+                    child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          if (state == 0) {
+                            state = 1;
+                            grad1 = LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  Colors.orangeAccent,
+                                  Colors.yellow.shade400
+                                ]);
+                          } else {
+                            state = 0;
+                            grad1 = LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  Colors.greenAccent,
+                                  Colors.limeAccent
+                                ]);
+                          }
+                        });
+                      },
+                      child: AnimatedContainer(
+                        duration: Duration(seconds: 3),
+                        decoration: BoxDecoration(
+                          gradient: grad1,
+                          shape: BoxShape.circle,
                         ),
-                        shape: BoxShape.circle,
-                      ),
-                      margin: EdgeInsets.all(50.0),
-                      padding: EdgeInsets.all(10.0),
-                      child: Center(
-                        child: Text(
-                          'What is your Name?',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 40.0,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Pacifico',
+                        margin: EdgeInsets.all(50.0),
+                        padding: EdgeInsets.all(10.0),
+                        child: Center(
+                          child: Text(
+                            'What is your Name?',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 40.0,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Pacifico',
+                            ),
                           ),
                         ),
                       ),
